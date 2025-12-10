@@ -62,24 +62,24 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download Tomcat installation
-        uses: actions/download-artifact@v4
-        with:
-          name: tomcat-installation
-          path: /opt/tomcat10
-
       - name: Download WAR artifact
         uses: actions/download-artifact@v4
         with:
           name: economic-times-app
           path: ./war
 
-      - name: Start Tomcat and deploy WAR
+      - name: Install Tomcat
+        run: |
+          cd /opt
+          sudo wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.50/bin/apache-tomcat-10.1.50.tar.gz
+          sudo tar -xzf apache-tomcat-10.1.50.tar.gz
+          sudo mv apache-tomcat-10.1.50 tomcat10
+          sudo chmod +x /opt/tomcat10/bin/*.sh
+
+      - name: Deploy WAR and start Tomcat
         run: |
           sudo cp ./war/*.war /opt/tomcat10/webapps/
-          sudo /opt/tomcat10/bin/startup.sh
+          nohup /opt/tomcat10/bin/startup.sh &
           sleep 10
-
-      - name: Verify app is running
-        run: |
           curl -I http://localhost:8080/economic-times-app/ || true
+          /opt/tomcat10/bin/shutdown.sh
