@@ -63,7 +63,7 @@ jobs:
         
     - name: Status check
       run: |
-        curl - I http://localhost:8080/economic-times-app/ || true
+        curl -I http://localhost:8080/economic-times-app/ || true
         
     - name: Verify app content
       run: |
