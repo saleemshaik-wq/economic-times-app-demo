@@ -53,6 +53,12 @@ jobs:
         tar -xzf apache-tomcat-10.1.50.tar.gz
         mv apache-tomcat-10.1.50 tomcat10
         chmod +x tomcat10/bin/*.sh
+
+    - name: debug info
+      run: |
+        pwd
+        ls -ltr .
+        ls -la ./war/
     
     - name: Deploy war to Tomcat
       run: |
