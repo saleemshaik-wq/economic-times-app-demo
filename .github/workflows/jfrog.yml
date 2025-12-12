@@ -35,7 +35,7 @@ jobs:
 
       - name: Configure JFrog CLI
         run: |
-           jfrog config edit artifactory-server \
+           jfrog config add artifactory-server \
            --url "https://trial7uwx5b.jfrog.io" \
            --access-token "${{ secrets.JFROG_TOKEN }}" \
            --interactive=false
