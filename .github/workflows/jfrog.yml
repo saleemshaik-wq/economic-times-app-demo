@@ -43,7 +43,7 @@ jobs:
       - name: Upload WAR to JFrog
         run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          jfrog rt upload "target/*.war" "economicTimes/com/economic-times/${TIMESTAMP}/"
+          jfrog rt upload "target/*.war" "jfrog/com/economic-times/${TIMESTAMP}/"
 
           echo "Copying WAR to Tomcat..."
           sudo cp target/*.war /opt/apache-tomcat-11.0.15/webapps
